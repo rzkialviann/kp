@@ -63,7 +63,9 @@ export default function AdminDashboard({ onExit }) {
     if (saved) {
       try {
         setSession(JSON.parse(saved));
-      } catch (e) {}
+      } catch {
+        // do nothing
+      }
     }
   }, []);
 
@@ -333,19 +335,20 @@ export default function AdminDashboard({ onExit }) {
     confirmDelete('gallery_item', itemId);
   };
 
-  let dragItem = null;
-  const handleDragStart = (idx) => { dragItem = idx; };
+  const dragItem = React.useRef(null);
+  const handleDragStart = (idx) => { dragItem.current = idx; };
   const handleDragOver = (e) => { e.preventDefault(); };
   const handleDrop = async (e, dropIdx) => {
     e.preventDefault();
-    if (dragItem === null || dragItem === dropIdx) return;
+    if (dragItem.current === null || dragItem.current === dropIdx) return;
     
     const newItems = [...galleryItems];
-    const item = newItems.splice(dragItem, 1)[0];
+    const item = newItems.splice(dragItem.current, 1)[0];
     newItems.splice(dropIdx, 0, item);
     
     const orderedItems = newItems.map((it, i) => ({ ...it, sort_order: i + 1 }));
     setGalleryItems(orderedItems);
+    dragItem.current = null;
     
     try {
       await reorderGallery(activeGalleryProject.id, orderedItems.map(it => it.id));

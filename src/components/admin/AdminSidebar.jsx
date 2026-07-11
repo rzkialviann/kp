@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, FolderKanban, Settings, LogOut } from 'lucide-react';
+import { X, FolderKanban, Settings, ArrowLeft } from 'lucide-react';
 
 export default function AdminSidebar({ activeTab, setActiveTab, activeGalleryProject, setActiveGalleryProject, onExit, isSidebarOpen, setIsSidebarOpen }) {
   const nav = (tab) => {
@@ -32,8 +32,8 @@ export default function AdminSidebar({ activeTab, setActiveTab, activeGalleryPro
       </div>
 
       <div className="mt-auto pt-12">
-        <button onClick={onExit} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-red-500 transition-colors w-full px-4 py-3 hover:bg-red-50 dark:hover:bg-red-950/30">
-          <LogOut className="w-4 h-4" /> Keluar Panel
+        <button onClick={onExit} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors w-full px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <ArrowLeft className="w-4 h-4" /> Website
         </button>
       </div>
     </aside>

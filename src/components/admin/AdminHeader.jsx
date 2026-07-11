@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 
 export default function AdminHeader({ toggleDarkMode, isDarkMode, handleLogout, isSidebarOpen, setIsSidebarOpen }) {
   return (
@@ -15,8 +15,8 @@ export default function AdminHeader({ toggleDarkMode, isDarkMode, handleLogout, 
         <button onClick={toggleDarkMode} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">
           {isDarkMode ? 'MODE: GELAP' : 'MODE: TERANG'}
         </button>
-        <button onClick={handleLogout} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors">
-          AKHIRI SESI
+        <button onClick={handleLogout} className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+          <LogOut className="w-3.5 h-3.5" /> KELUAR
         </button>
       </div>
     </header>
