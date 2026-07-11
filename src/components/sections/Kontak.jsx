@@ -1,151 +1,102 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, CheckCircle } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import { CheckCircle } from 'lucide-react';
+import { getSettings } from '../../api/settings';
+import { SquareDecoration, DotsDecoration } from '../ui/Shapes';
 
-// Custom Marker for Leaflet
-const customMarkerIcon = new L.divIcon({
-  className: 'custom-leaflet-marker',
-  html: `<div style="background-color: #1e40af; width: 14px; height: 14px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 8px rgba(30, 64, 175, 0.6);"></div>`,
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
-});
-
-export default function Kontak({ settings, initialCategory }) {
+export default function Kontak({ initialCategory }) {
+  const [settings, setSettings] = useState({});
   const [category, setCategory] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (initialCategory) {
-      setCategory(initialCategory);
-    }
+    getSettings().then(s => setSettings(s || {})).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (initialCategory) setCategory(initialCategory);
   }, [initialCategory]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted');
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 4000);
   };
 
   return (
-    <section id="kontak" className="py-20 lg:py-28 border-t border-slate-200 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="kontak" className="py-24 lg:py-32 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-slate-800 relative overflow-hidden">
+      <SquareDecoration className="w-[500px] h-[500px] -top-20 -left-40 rotate-12" />
+      <DotsDecoration className="bottom-20 right-20" rows={5} cols={5} />
 
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 reveal">
-          <h2 className="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Hubungi Kami</h2>
-          <p className="text-slate-500 dark:text-slate-400">Konsultasikan kebutuhan proyek Anda bersama tim kami</p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-
-          {/* Left Column — Map */}
-          <div className="lg:col-span-5 reveal-left h-full flex flex-col">
-            {/* Map */}
-            <div className="flex-grow w-full min-h-[400px] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 relative bg-slate-100 dark:bg-slate-900 shadow-sm">
-              <MapContainer 
-                center={[-7.385345, 112.717253]} 
-                zoom={14} 
-                scrollWheelZoom={false}
-                zoomControl={false}
-                style={{ height: '100%', width: '100%', zIndex: 0 }}
-              >
-                {/* TileLayer is styled by global CSS for dark mode */}
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[-7.385345, 112.717253]} icon={customMarkerIcon}>
-                  <Popup>
-                    <div className="text-center font-sans">
-                      <strong className="text-slate-900 block mb-1">Griya Permata Gedangan</strong>
-                      <span className="text-slate-500 text-xs">Sidoarjo, Jawa Timur</span>
-                    </div>
-                  </Popup>
-                </Marker>
-              </MapContainer>
-              
-              {/* Floating Location Label (Clickable) */}
-              <a 
-                href="https://maps.google.com/?q=-7.385345,112.717253" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="absolute top-3 left-3 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 backdrop-blur-sm px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-700/50 flex items-center space-x-2 transition-colors cursor-pointer shadow-sm" 
-                style={{ zIndex: 10 }}
-              >
-                <MapPin className="w-3.5 h-3.5 text-blue-800 dark:text-blue-400" strokeWidth={2.5} />
-                <span className="font-semibold text-xs text-slate-900 dark:text-white">Griya Permata Gedangan</span>
-              </a>
+      <div className="w-full px-6 lg:px-12 xl:px-20 relative z-10">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 reveal">
+          <div className="lg:col-span-5">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 block">Inisiasi Proyek</h2>
+            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-slate-800 dark:text-slate-100 leading-[1.05] mb-8">
+              Mari diskusikan detail visi konstruksi Anda.
+            </h3>
+            <p className="text-sm font-light text-slate-500 dark:text-slate-400 leading-relaxed mb-12">
+              Tim perencana kami siap membantu memetakan kebutuhan arsitektur maupun struktural Anda. Kami akan merespon dalam waktu 1x24 jam kerja.
+            </p>
+            <div className="border-t border-slate-200 dark:border-slate-800 pt-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-2">Alamat Kantor</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-light max-w-xs">{settings?.contact_address || 'Griya Permata Gedangan Blok I3 No.9, Sidoarjo, Jawa Timur.'}</p>
             </div>
           </div>
 
-          {/* Right Column — Contact Form */}
-          <div className="lg:col-span-7 bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 reveal-right">
-            <h4 className="font-heading font-bold text-xl text-slate-900 dark:text-white mb-6">Formulir Penawaran</h4>
-
-            {/* Success Alert */}
-            <div id="form-success-alert" className="hidden mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 rounded-xl text-emerald-800 dark:text-emerald-300 flex items-start space-x-3 text-sm">
-              <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" strokeWidth={2} />
-              <div>
-                <strong className="font-semibold block">Pesan Terkirim!</strong>
-                <span>Tim kami akan menanggapi pesan Anda dalam waktu 1x24 jam.</span>
+          <div className="lg:col-span-7">
+            {submitted ? (
+              <div className="h-full flex flex-col items-center justify-center text-center py-20">
+                <CheckCircle className="w-12 h-12 text-slate-800 dark:text-slate-100 mb-6" strokeWidth={1} />
+                <h4 className="text-2xl font-medium tracking-tight text-slate-800 dark:text-slate-100 mb-2">Pesan Diterima</h4>
+                <p className="text-slate-500 dark:text-slate-400 font-light text-sm">Tim kami akan segera meninjau dan menghubungi Anda kembali.</p>
               </div>
-            </div>
-
-            <form id="contact-form" className="space-y-5" noValidate>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="space-y-1.5">
-                  <label htmlFor="form-name" className="text-xs font-medium text-slate-500 dark:text-slate-400">Nama Lengkap *</label>
-                  <input type="text" id="form-name" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800/20 focus:border-blue-800 dark:focus:ring-blue-400/20 dark:focus:border-blue-400 transition-all" placeholder="Masukkan nama Anda" />
-                  <span className="error-msg text-xs text-red-500 hidden">Nama lengkap wajib diisi</span>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nama Lengkap</label>
+                    <input type="text" required placeholder="John Doe" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Alamat Email</label>
+                    <input type="email" required placeholder="john@company.com" />
+                  </div>
                 </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="form-email" className="text-xs font-medium text-slate-500 dark:text-slate-400">Email Bisnis *</label>
-                  <input type="email" id="form-email" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800/20 focus:border-blue-800 dark:focus:ring-blue-400/20 dark:focus:border-blue-400 transition-all" placeholder="contoh@perusahaan.com" />
-                  <span className="error-msg text-xs text-red-500 hidden">Masukkan format email yang valid</span>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nomor Telepon</label>
+                    <input type="tel" placeholder="0812xxxx" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Kategori Proyek</label>
+                    <select value={category} onChange={e => setCategory(e.target.value)} required>
+                      <option value="">Pilih kategori...</option>
+                      <option value="gedung">Konstruksi Gedung</option>
+                      <option value="jalan">Pekerjaan Jalan</option>
+                      <option value="jembatan">Pembangunan Jembatan</option>
+                      <option value="infrastruktur">Drainase & Irigasi</option>
+                      <option value="renovasi">Renovasi Bangunan</option>
+                      <option value="desain">Perencanaan & Pengawasan</option>
+                      <option value="lainnya">Lainnya</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="space-y-1.5">
-                  <label htmlFor="form-phone" className="text-xs font-medium text-slate-500 dark:text-slate-400">No. Telepon / WhatsApp</label>
-                  <input type="tel" id="form-phone" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800/20 focus:border-blue-800 dark:focus:ring-blue-400/20 dark:focus:border-blue-400 transition-all" placeholder="08123456789" />
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Deskripsi Kebutuhan</label>
+                  <textarea rows="3" required placeholder="Jelaskan secara singkat rencana proyek Anda..."></textarea>
                 </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="form-subject" className="text-xs font-medium text-slate-500 dark:text-slate-400">Kategori Layanan *</label>
-                  <select 
-                    id="form-subject" 
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-800/20 focus:border-blue-800 dark:focus:ring-blue-400/20 dark:focus:border-blue-400 transition-all"
-                  >
-                    <option value="">Pilih kategori</option>
-                    <option value="gedung">Konstruksi Gedung / Kantor</option>
-                    <option value="jalan">Pekerjaan Jalan / Beton</option>
-                    <option value="jembatan">Pembangunan Jembatan</option>
-                    <option value="infrastruktur">Sistem Irigasi / Drainase</option>
-                    <option value="renovasi">Renovasi Bangunan Komersial</option>
-                    <option value="desain">Perencanaan & Pengawasan Proyek</option>
-                    <option value="lainnya">Pertanyaan Umum / Tender Lain</option>
-                  </select>
-                  <span className="error-msg text-xs text-red-500 hidden">Silakan pilih salah satu kategori</span>
+
+                <div className="pt-4">
+                  <button type="submit" className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 border-b-2 border-slate-800 dark:border-slate-200 pb-1 hover:opacity-70 transition-opacity">
+                    Kirim Pesan
+                  </button>
                 </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label htmlFor="form-message" className="text-xs font-medium text-slate-500 dark:text-slate-400">Detail Kebutuhan Proyek *</label>
-                <textarea id="form-message" rows="4" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-800/20 focus:border-blue-800 dark:focus:ring-blue-400/20 dark:focus:border-blue-400 transition-all" placeholder="Jelaskan rencana proyek Anda (lokasi, volume, estimasi anggaran)"></textarea>
-                <span className="error-msg text-xs text-red-500 hidden">Tuliskan deskripsi pesan Anda</span>
-              </div>
-
-              <button type="submit" className="w-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 font-semibold py-3 rounded-lg transition-colors text-sm">
-                Kirim Formulir Penawaran
-              </button>
-
-            </form>
+              </form>
+            )}
           </div>
-
         </div>
 
       </div>

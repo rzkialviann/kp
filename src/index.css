@@ -1,11 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-heading: "Inter", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  
+  --color-navy-950: #18181b; /* True black/dark charcoal for dark mode */
+  --color-slate-800: #171717;
+  --color-slate-800: #262626;
+  --color-slate-100: #f5f5f5;
+  --color-slate-50: #fafafa;
+  --color-amber-500: #000000; /* Minimalist often uses monochrome CTA, but let's keep amber or switch to strict black/white? User said "konsisten", I'll use true black for buttons in light mode, white in dark mode. Wait, I'll keep amber-500 as an accent just in case, but redefine it to a very muted color or keep amber. I'll stick to amber-500 but use it very sparingly. */
 }
 
 @layer base {
@@ -13,145 +20,66 @@
     scroll-behavior: smooth;
   }
   body {
-    transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+  }
+  
+  /* Minimalist Form Inputs */
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="number"], textarea, select {
+    @apply bg-transparent border-0 border-b border-slate-300 dark:border-slate-700 px-0 py-3 text-slate-800 dark:text-slate-100 rounded-none shadow-none focus:ring-0 focus:border-slate-800 dark:focus:border-white transition-colors w-full outline-none;
+  }
+  
+  input::placeholder, textarea::placeholder {
+    @apply text-slate-400 font-light;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d4d4d4; }
+.dark ::-webkit-scrollbar-thumb { background: #404040; }
+* { scrollbar-width: thin; scrollbar-color: #d4d4d4 transparent; }
+.dark * { scrollbar-color: #404040 transparent; }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #94a3b8 transparent;
-}
-
-.dark * {
-  scrollbar-color: #334155 transparent;
-}
-
-/* Force Hide Leaflet Controls */
-.leaflet-control-zoom {
-  display: none !important;
-}
-.leaflet-control-attribution {
-  opacity: 0.5;
-  font-size: 8px !important;
-  background: transparent !important;
-}
-
-/* Custom dark mode filter for standard Leaflet map */
+/* Leaflet overrides */
+.leaflet-control-zoom { display: none !important; }
+.leaflet-control-attribution { display: none !important; }
 .dark .leaflet-layer,
-.dark .leaflet-control-zoom-in,
-.dark .leaflet-control-zoom-out,
 .dark .leaflet-control-attribution {
-  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  filter: grayscale(100%) invert(100%) contrast(120%);
+}
+.leaflet-layer { filter: grayscale(100%) contrast(120%); }
+
+/* Minimalist animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s ease forwards;
 }
 
-
-/* Navbar */
-.glass-nav {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-.dark .glass-nav {
-  background: rgba(2, 6, 23, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(30, 41, 59, 0.8);
-}
-
-/* Glassmorphism — used on Hero overlay card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.6);
-}
-
-.dark .glass-card {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.4);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Reveal on Scroll */
 .reveal {
-  position: relative;
   opacity: 0;
-  transform: translateY(24px);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s ease;
 }
-
 .reveal.active {
   opacity: 1;
-  transform: translateY(0);
 }
 
-.reveal-left {
-  position: relative;
-  opacity: 0;
-  transform: translateX(-24px);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+/* Accordion interaction for Layanan */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
 }
-
-.reveal-left.active {
-  opacity: 1;
-  transform: translateX(0);
+.accordion-item:hover .accordion-content,
+.accordion-content.expanded {
+  grid-template-rows: 1fr;
 }
-
-.reveal-right {
-  position: relative;
-  opacity: 0;
-  transform: translateX(24px);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-right.active {
-  opacity: 1;
-  transform: translateX(0);
+.accordion-content > div {
+  overflow: hidden;
 }

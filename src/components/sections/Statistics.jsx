@@ -3,78 +3,67 @@ import { getSettings } from '../../api/settings';
 
 const Counter = ({ target, suffix = '+' }) => {
   const [count, setCount] = useState(0);
-  const elementRef = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     if (target === undefined || target === null) return;
-    
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          let startTimestamp = null;
+          let start = null;
           const duration = 2000;
-
-          const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 4);
-            setCount(Math.floor(easeOut * target));
-
-            if (progress < 1) {
-              window.requestAnimationFrame(step);
-            }
+          const step = (ts) => {
+            if (!start) start = ts;
+            const progress = Math.min((ts - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 4);
+            setCount(Math.floor(ease * target));
+            if (progress < 1) requestAnimationFrame(step);
           };
-          window.requestAnimationFrame(step);
+          requestAnimationFrame(step);
         } else {
           setCount(0);
         }
       },
       { threshold: 0.2 }
     );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [target]);
 
-  return <span ref={elementRef}>{count}{suffix}</span>;
+  return <span ref={ref}>{count}{suffix}</span>;
 };
 
 export default function Statistics() {
-  const [statsData, setStatsData] = useState(null);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetch = async () => {
       try {
-        const settings = await getSettings();
-        if (settings) {
-          setStatsData([
-            { target: parseInt(settings.stats_projects) || 214, suffix: '+', label: 'Proyek Selesai' },
-            { target: parseInt(settings.stats_years) || 9, suffix: '+', label: 'Tahun Pengalaman' },
-            { target: parseInt(settings.stats_clients) || 74, suffix: '+', label: 'Klien Puas' },
-            { target: parseInt(settings.stats_quality) || 99, suffix: '%', label: 'Komitmen Kualitas' },
-          ]);
-        }
-      } catch (err) {
-        console.error("Gagal memuat statistik", err);
-      }
+        const s = await getSettings();
+        if (s) setStats([
+          { target: parseInt(s.stats_projects) || 214, suffix: '+', label: 'Proyek Terselesaikan' },
+          { target: parseInt(s.stats_years) || 9, suffix: '+', label: 'Tahun Pengalaman' },
+          { target: parseInt(s.stats_clients) || 74, suffix: '+', label: 'Klien Korporat & Publik' },
+          { target: parseInt(s.stats_quality) || 99, suffix: '%', label: 'Indeks Kepuasan Kualitas' },
+        ]);
+      } catch {}
     };
-    fetchStats();
+    fetch();
   }, []);
 
   return (
-    <section id="statistics" className="py-16 lg:py-20 bg-slate-900 dark:bg-slate-900 text-white min-h-[250px] flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        {statsData && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {statsData.map((item, index) => (
-              <div key={item.label} className="text-center" style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both` }}>
-                <div className="text-4xl sm:text-5xl font-heading font-bold text-white mb-2">
+    <section className="bg-slate-800 dark:bg-[#18181b] text-white py-24 border-y border-slate-800">
+      <div className="w-full px-6 lg:px-12 xl:px-20">
+        {stats && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-800 reveal">
+            {stats.map((item, i) => (
+              <div key={item.label} className={`pt-8 sm:pt-0 ${i !== 0 ? 'sm:pl-8 lg:pl-12' : ''}`}>
+                <div className="font-light text-6xl tracking-tighter text-white mb-4">
                   <Counter target={item.target} suffix={item.suffix} />
                 </div>
-                <p className="text-sm text-slate-400 font-medium">{item.label}</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                  {item.label}
+                </p>
               </div>
             ))}
           </div>
@@ -83,4 +72,3 @@ export default function Statistics() {
     </section>
   );
 }
-

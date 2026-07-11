@@ -1,43 +1,54 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { CircleDecoration, SquareDecoration, DotsDecoration } from '../ui/Shapes';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+    <section id="hero" className="min-h-screen bg-zinc-50 dark:bg-zinc-900 pt-24 pb-16 flex flex-col justify-end relative overflow-hidden">
+      
+      {/* Background Decorations */}
+      <CircleDecoration className="w-[800px] h-[800px] -top-[400px] -right-[200px]" />
+      <SquareDecoration className="w-64 h-64 bottom-20 -left-10 rotate-12" />
+      <DotsDecoration className="top-32 left-10" rows={4} cols={8} />
 
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img src="images/hero_bg.jpg" alt="CV. STARCON SEJAHTERA Project Site" className="w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-white/80 dark:bg-slate-950/85"></div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="max-w-3xl animate-fade-in-up">
-
-          <p className="text-sm font-semibold text-blue-800 dark:text-blue-400 tracking-wide uppercase mb-4">
-            CV. Starcon Sejahtera
-          </p>
-
-          <h1 className="font-heading font-bold text-4xl sm:text-5xl lg:text-[3.5rem] tracking-tight leading-[1.1] text-slate-900 dark:text-white mb-6">
-            Membangun Masa Depan<br className="hidden sm:block" /> dengan Kualitas &amp; Integritas
+      <div className="w-full px-6 lg:px-12 xl:px-20 w-full animate-fade-in flex flex-col h-full justify-between relative z-10">
+        
+        {/* Top Header Area */}
+        <div className="mt-12 lg:mt-24 mb-16 max-w-5xl">
+          <h1 className="font-bold text-5xl sm:text-6xl lg:text-[5.5rem] leading-[1.05] tracking-tighter text-slate-800 dark:text-slate-100 mb-8">
+            Membangun presisi.<br className="hidden sm:block" />
+            Membentuk masa depan.
           </h1>
+        </div>
 
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl">
-            Solusi konstruksi sipil dan bangunan profesional untuk proyek pemerintah, swasta, dan industri. Berpengalaman menyelesaikan berbagai mega-proyek nasional.
-          </p>
+        {/* Bottom Area: Grid for Image & Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mt-auto">
+          {/* Main Hero Image */}
+          <div className="lg:col-span-8 order-2 lg:order-1">
+            <div className="w-full aspect-[16/9] lg:aspect-[2/1] overflow-hidden bg-slate-200 dark:bg-slate-800 relative">
+              <img 
+                src="/images/hero_bg.jpg" 
+                alt="Architecture" 
+                className="w-full h-full object-cover transition-all duration-700"
+              />
+            </div>
+          </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <a href="#kontak" className="inline-flex items-center justify-center bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 font-semibold px-7 py-3 rounded-lg transition-colors text-sm">
-              Konsultasi Gratis
-              <ArrowRight className="w-4 h-4 ml-2" strokeWidth={2} />
-            </a>
-            <a href="#portofolio" className="inline-flex items-center justify-center border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold px-7 py-3 rounded-lg transition-colors text-sm">
-              Lihat Portofolio
-            </a>
+          {/* Description & CTA */}
+          <div className="lg:col-span-4 order-1 lg:order-2 pb-2 lg:pb-0 space-y-8">
+            <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400 leading-relaxed font-light">
+              CV. Starcon Sejahtera menghadirkan solusi konstruksi profesional untuk proyek infrastruktur, gedung, dan fasilitas publik di seluruh Indonesia dengan standar kualitas tertinggi.
+            </p>
+            <div className="flex items-center gap-6">
+              <a href="#kontak" className="inline-block border-b border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-100 font-bold text-sm uppercase tracking-widest pb-1 hover:opacity-70 transition-opacity">
+                Mulai Proyek
+              </a>
+              <a href="#portofolio" className="inline-block text-slate-400 hover:text-slate-800 dark:hover:text-white font-medium text-sm uppercase tracking-widest transition-colors">
+                Lihat Karya
+              </a>
+            </div>
           </div>
         </div>
       </div>
-
     </section>
   );
 }

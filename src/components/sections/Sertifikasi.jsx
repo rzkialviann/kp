@@ -1,59 +1,49 @@
 import React from 'react';
-import { FileText, Activity, CreditCard, ShieldCheck } from 'lucide-react';
+import { CircleDecoration, DotsDecoration } from '../ui/Shapes';
 
-const sertifikasiData = [
-  {
-    icon: FileText,
-    code: 'SBU',
-    label: 'Sertifikat Badan Usaha',
-    desc: 'Terdaftar resmi pada Lembaga Pengembangan Jasa Konstruksi (LPJK) Klasifikasi BG & SI.',
-  },
-  {
-    icon: Activity,
-    code: 'NIB',
-    label: 'Nomor Induk Berusaha',
-    desc: 'Beroperasi secara legal penuh di bawah koordinasi BKPM (OSS RBA Elektronik).',
-  },
-  {
-    icon: CreditCard,
-    code: 'NPWP',
-    label: 'Wajib Pajak Badan',
-    desc: 'Ketaatan administrasi perpajakan negara secara disiplin, tertib, dan berkala.',
-  },
-  {
-    icon: ShieldCheck,
-    code: 'Standard K3',
-    label: 'Sertifikat SMK3',
-    desc: 'Sertifikasi Sistem Manajemen Keselamatan dan Kesehatan Kerja di lingkungan proyek.',
-  },
+const certs = [
+  { code: 'SBU', label: 'Sertifikat Badan Usaha', desc: 'Sertifikasi keahlian teknis oleh LPJK untuk pekerjaan klasifikasi BG & SI dengan kualifikasi terukur.' },
+  { code: 'NIB', label: 'Nomor Induk Berusaha', desc: 'Identitas dan legalitas operasional resmi terdaftar pada kementerian investasi & BKPM.' },
+  { code: 'NPWP', label: 'Wajib Pajak Badan', desc: 'Kepatuhan administrasi fiskal dan transparansi tata kelola keuangan perusahaan.' },
+  { code: 'SMK3', label: 'Sertifikat K3', desc: 'Penerapan standar tertinggi manajemen keselamatan & kesehatan kerja di lapangan.' },
 ];
 
 export default function Sertifikasi() {
   return (
-    <section id="sertifikasi" className="py-20 lg:py-28 border-t border-slate-200 dark:border-slate-800">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="sertifikasi" className="py-24 lg:py-32 bg-white dark:bg-[#18181b] relative overflow-hidden">
+      <CircleDecoration className="w-[400px] h-[400px] top-[-100px] left-[-100px]" />
+      <DotsDecoration className="bottom-10 right-1/4" rows={2} cols={10} />
       
-      {/* Section Header */}
-      <div className="text-center max-w-2xl mx-auto mb-16 reveal">
-        <h2 className="font-heading font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white mb-4">Sertifikasi & Legalitas</h2>
-        <p className="text-slate-500 dark:text-slate-400">Kredibilitas dan legalitas usaha yang terjamin</p>
-      </div>
-
-      {/* Certificates Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {sertifikasiData.map((item) => (
-          <div key={item.code} className="reveal bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-colors text-center">
-            <div className="w-12 h-12 bg-blue-800/10 dark:bg-blue-400/10 rounded-lg flex items-center justify-center mx-auto mb-5 text-blue-800 dark:text-blue-400">
-              <item.icon className="h-6 w-6" strokeWidth={2} />
-            </div>
-            <h4 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1">{item.code}</h4>
-            <span className="inline-block text-xs font-medium text-blue-800 dark:text-blue-400 bg-blue-800/5 dark:bg-blue-400/10 px-3 py-1 rounded-md mb-4">{item.label}</span>
-            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+      <div className="w-full px-6 lg:px-12 xl:px-20 relative z-10">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 reveal">
+          <div className="lg:col-span-4">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 block">Legalitas</h2>
+            <h3 className="text-3xl font-medium tracking-tight text-slate-800 dark:text-slate-100 max-w-sm">
+              Sertifikasi & Kepatuhan
+            </h3>
           </div>
-        ))}
-      </div>
+          
+          <div className="lg:col-span-8">
+            <div className="border-t border-slate-200 dark:border-slate-800">
+              {certs.map(c => (
+                <div key={c.code} className="grid grid-cols-1 sm:grid-cols-12 gap-4 py-8 border-b border-slate-200 dark:border-slate-800 hover:bg-zinc-50 dark:hover:bg-slate-800/30 transition-colors">
+                  <div className="sm:col-span-3">
+                    <h4 className="text-2xl font-light tracking-tight text-slate-800 dark:text-slate-100">{c.code}</h4>
+                  </div>
+                  <div className="sm:col-span-4">
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-2">{c.label}</p>
+                  </div>
+                  <div className="sm:col-span-5">
+                    <p className="text-sm font-light text-slate-500 dark:text-slate-400 leading-relaxed">{c.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-    </div>
-  </section>
+      </div>
+    </section>
   );
 }
