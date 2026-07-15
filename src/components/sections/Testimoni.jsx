@@ -35,11 +35,11 @@ export default function Testimoni() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {testimonials.map((t, i) => (
             <div key={i} className="reveal flex flex-col justify-between h-full" style={{ transitionDelay: `${i * 100}ms` }}>
-              <p className="text-lg lg:text-xl font-medium tracking-tight text-slate-800 dark:text-slate-100 leading-relaxed mb-8">
+              <p className="text-lg lg:text-xl font-medium tracking-tight text-slate-800 dark:text-slate-300 leading-relaxed mb-8">
                 "{t.text}"
               </p>
               <div className="border-t border-slate-200 dark:border-slate-800 pt-6 mt-auto">
-                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 uppercase tracking-widest mb-1">{t.author}</p>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-300 uppercase tracking-widest mb-1">{t.author}</p>
                 <p className="text-xs text-slate-500 font-light">{t.role}</p>
               </div>
             </div>

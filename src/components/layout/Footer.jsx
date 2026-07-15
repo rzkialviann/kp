@@ -20,29 +20,29 @@ export default function Footer({ settings }) {
           </div>
 
           <div className="md:col-span-3 lg:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-6">Navigasi</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 mb-6">Navigasi</h4>
             <ul className="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-              <li><a href="#tentang" className="hover:text-slate-800 dark:hover:text-white transition-colors">Tentang Kami</a></li>
-              <li><a href="#layanan" className="hover:text-slate-800 dark:hover:text-white transition-colors">Layanan</a></li>
-              <li><a href="#portofolio" className="hover:text-slate-800 dark:hover:text-white transition-colors">Portofolio</a></li>
+              <li><a href="#tentang" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Tentang Kami</a></li>
+              <li><a href="#layanan" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Layanan</a></li>
+              <li><a href="#portofolio" className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Portofolio</a></li>
             </ul>
           </div>
 
           <div className="md:col-span-5 lg:col-span-5">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-6">Kontak</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 mb-6">Kontak</h4>
             <div className="text-sm text-slate-500 dark:text-slate-400 space-y-4">
               <p className="max-w-xs">{settings?.contact_address || 'Griya Permata Gedangan Blok I3 No.9, Sidoarjo, Jawa Timur.'}</p>
               <div className="pt-2 flex flex-col space-y-2">
-                <a href={`mailto:${settings?.contact_email || 'info@starconsejahtera.co.id'}`} className="hover:text-slate-800 dark:hover:text-white transition-colors inline-block">
+                <a href={`mailto:${settings?.contact_email || 'info@starconsejahtera.co.id'}`} className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors inline-block">
                   {settings?.contact_email || 'info@starconsejahtera.co.id'}
                 </a>
-                <a href={`tel:${settings?.contact_phone?.replace(/[^0-9]/g, '') || '0315558899'}`} className="hover:text-slate-800 dark:hover:text-white transition-colors inline-block">
+                <a href={`tel:${settings?.contact_phone?.replace(/[^0-9]/g, '') || '0315558899'}`} className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors inline-block">
                   {settings?.contact_phone || '(031) 555-8899'}
                 </a>
               </div>
               <div className="flex items-center gap-6 pt-4">
-                <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest hover:text-slate-800 dark:hover:text-white transition-colors">WhatsApp</a>
-                {igUser && <a href={`https://instagram.com/${igUser}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest hover:text-slate-800 dark:hover:text-white transition-colors">Instagram</a>}
+                <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest hover:text-slate-800 dark:hover:text-slate-200 transition-colors">WhatsApp</a>
+                {igUser && <a href={`https://instagram.com/${igUser}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold uppercase tracking-widest hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Instagram</a>}
               </div>
             </div>
           </div>

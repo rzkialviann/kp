@@ -22,7 +22,7 @@ export default function Layanan() {
         
         <div className="mb-16 lg:mb-24 reveal">
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 block">Kompetensi Inti</h2>
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-slate-800 dark:text-slate-100 max-w-2xl">
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-slate-800 dark:text-slate-300 max-w-2xl">
             Layanan rekayasa & konstruksi terpadu
           </h3>
         </div>
@@ -37,12 +37,12 @@ export default function Layanan() {
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-baseline">
                 <div className="lg:col-span-2">
-                  <span className={`text-sm font-medium transition-colors ${active === svc.id ? 'text-slate-800 dark:text-slate-100' : 'text-slate-400'}`}>
+                  <span className={`text-sm font-medium transition-colors ${active === svc.id ? 'text-slate-800 dark:text-slate-300' : 'text-slate-400'}`}>
                     {svc.id}
                   </span>
                 </div>
                 <div className="lg:col-span-5">
-                  <h4 className={`text-xl lg:text-3xl font-medium tracking-tight transition-colors ${active === svc.id ? 'text-slate-800 dark:text-slate-100' : 'text-slate-400 group-hover:text-slate-800 dark:group-hover:text-white'}`}>
+                  <h4 className={`text-xl lg:text-3xl font-medium tracking-tight transition-colors ${active === svc.id ? 'text-slate-800 dark:text-slate-300' : 'text-slate-400 group-hover:text-slate-800 dark:group-hover:text-white'}`}>
                     {svc.title}
                   </h4>
                 </div>

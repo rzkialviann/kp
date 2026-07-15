@@ -61,7 +61,7 @@ class UserController {
     /** PUT /api/users/{id} */
     public function update(int $id): void {
         $body = json_decode(file_get_contents('php://input'), true) ?? [];
-        $existing = $this->model->findById($id);
+        $existing = $this->model->findByIdWithPassword($id);
         if (!$existing) Response::notFound('User tidak ditemukan');
 
         if (empty($body['name']) || empty($body['email'])) {
@@ -72,6 +72,15 @@ class UserController {
         if ($body['email'] !== $existing['email']) {
             if ($this->model->findByEmail($body['email'])) {
                 Response::error('Email sudah terdaftar', 422);
+            }
+        }
+
+        if (!empty($body['password'])) {
+            if (empty($body['old_password'])) {
+                Response::error('Password lama wajib diisi', 422);
+            }
+            if (!password_verify($body['old_password'], $existing['password'])) {
+                Response::error('Password lama salah', 401);
             }
         }
 

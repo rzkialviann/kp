@@ -65,7 +65,7 @@ function App() {
   const waNumber = settings?.contact_wa?.replace(/[^0-9]/g, '') || '6281234567890';
 
   return (
-    <div className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen">
+    <div className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-300 min-h-screen">
       <Navbar settings={settings} />
 
       {activeProjectId !== null && (

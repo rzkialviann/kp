@@ -38,7 +38,7 @@ export default function ProsesKerja() {
           </div>
           
           <div className="lg:col-span-7">
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-slate-800 dark:text-slate-100 mb-16">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-slate-800 dark:text-slate-300 mb-16">
               Sistematika kerja terstruktur.
             </h3>
             
@@ -50,7 +50,7 @@ export default function ProsesKerja() {
                     <span className="font-light text-5xl text-slate-300 dark:text-slate-800 tracking-tighter block">{step.id}</span>
                   </div>
                   
-                  <h4 className="text-2xl font-medium tracking-tight text-slate-800 dark:text-slate-100 mb-4">
+                  <h4 className="text-2xl font-medium tracking-tight text-slate-800 dark:text-slate-300 mb-4">
                     {step.title}
                   </h4>
                   <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed max-w-lg">

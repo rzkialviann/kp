@@ -11,6 +11,7 @@ import Toast from '../components/ui/Toast';
 import { getSettings, updateSettings } from '../api/settings';
 import { getProjects, createProject, updateProject, deleteProject, getProjectGallery, uploadGallery, updateGalleryItem, deleteGalleryItem, reorderGallery } from '../api/projects';
 import { getCategories, createCategory, updateCategory, deleteCategory } from '../api/categories';
+import { login } from '../api/auth';
 
 export default function AdminDashboard({ onExit }) {
   const [toast, setToast] = useState({ message: '', type: 'info' });
@@ -94,13 +95,12 @@ export default function AdminDashboard({ onExit }) {
     e.preventDefault();
     setAuthLoading(true);
     setAuthError('');
-    // Dummy login
-    if (email === 'admin@starcon.id' && password === 'admin123') {
-      const user = { email, role: 'admin' };
+    try {
+      const user = await login(email, password);
       setSession(user);
       localStorage.setItem('starcon_admin_user', JSON.stringify(user));
-    } else {
-      setAuthError('Email atau password salah. Coba admin@starcon.id / admin123');
+    } catch (err) {
+      setAuthError(err.message || 'Email atau password salah.');
     }
     setAuthLoading(false);
   };
@@ -147,6 +147,11 @@ export default function AdminDashboard({ onExit }) {
   const handleThumbnailChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 4 * 1024 * 1024) {
+        showToast('Ukuran gambar maksimal 4MB', 'error');
+        e.target.value = '';
+        return;
+      }
       setProjectThumbnail(file);
       setThumbnailPreview(URL.createObjectURL(file));
       setProjectThumbnailUrl('');
@@ -278,11 +283,12 @@ export default function AdminDashboard({ onExit }) {
     loadGallery(project.id);
   };
 
-  const handleAddGalleryUrl = async () => {
-    if (!newGalleryImageUrl.trim()) return;
+  const handleAddGalleryUrl = async (url) => {
+    const targetUrl = typeof url === 'string' ? url : newGalleryImageUrl;
+    if (!targetUrl || !targetUrl.trim()) return;
     try {
       const formData = new FormData();
-      formData.append('image_url', newGalleryImageUrl.trim());
+      formData.append('image_url', targetUrl.trim());
       await uploadGallery(activeGalleryProject.id, formData);
       setNewGalleryImageUrl('');
       showToast('Gambar berhasil ditambahkan ke galeri.', 'success');
@@ -295,10 +301,25 @@ export default function AdminDashboard({ onExit }) {
   const handleGalleryUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
+
+    const validFiles = [];
+    for (const file of files) {
+      if (file.size > 4 * 1024 * 1024) {
+        showToast(`File ${file.name} terlalu besar (Maks 4MB)`, 'error');
+      } else {
+        validFiles.push(file);
+      }
+    }
+
+    if (validFiles.length === 0) {
+      e.target.value = '';
+      return;
+    }
+
     setGalleryLoading(true);
     try {
       let successCount = 0;
-      for (const file of files) {
+      for (const file of validFiles) {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'starcon_portfolio');
@@ -370,7 +391,7 @@ export default function AdminDashboard({ onExit }) {
   }
 
   return (
-    <div className="flex h-screen bg-zinc-50 dark:bg-[#18181b] text-slate-800 dark:text-slate-100 font-sans selection:bg-slate-800 selection:text-white dark:selection:bg-white dark:selection:text-slate-800 overflow-hidden">
+    <div className="flex h-screen bg-zinc-50 dark:bg-[#18181b] text-slate-800 dark:text-slate-300 font-sans selection:bg-slate-800 selection:text-white dark:selection:bg-white dark:selection:text-slate-800 overflow-hidden">
       
       <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: '', type: 'info' })} />
 
@@ -389,6 +410,8 @@ export default function AdminDashboard({ onExit }) {
         <AdminHeader
           toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode}
           handleLogout={handleLogout} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}
+          activeTab={activeTab} activeGalleryProject={activeGalleryProject}
+          setActiveTab={setActiveTab} setActiveGalleryProject={setActiveGalleryProject}
         />
 
         <main className="flex-1 overflow-y-auto p-6 md:p-12">
@@ -419,6 +442,7 @@ export default function AdminDashboard({ onExit }) {
                 <SettingsTab
                   settingsData={settingsData} setSettingsData={setSettingsData}
                   handleSettingsSubmit={handleSettingsSubmit} settingsLoading={settingsLoading}
+                  session={session} setSession={setSession} showToast={showToast}
                 />
               )}
             </>

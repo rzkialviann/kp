@@ -25,6 +25,14 @@ class User {
         return $stmt->fetch();
     }
 
+    public function findByIdWithPassword(int $id): array|false {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM users WHERE id = ?"
+        );
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
     public function findByEmail(string $email): array|false {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);

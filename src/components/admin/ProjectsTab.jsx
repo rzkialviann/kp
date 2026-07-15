@@ -16,13 +16,13 @@ export default function ProjectsTab({
               <FolderTree className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-100 uppercase">Arsip Proyek</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-300 uppercase">Arsip Proyek</h2>
               <p className="text-xs font-medium text-slate-500 mt-1 uppercase tracking-widest">Direktori portofolio utama</p>
             </div>
           </div>
           <button
             onClick={openCreateProject}
-            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 border-2 border-slate-800 dark:border-slate-200 px-4 py-2 hover:bg-slate-800 hover:text-white dark:hover:bg-white dark:hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 border-2 border-slate-800 dark:border-slate-200 px-4 py-2 hover:bg-slate-800 hover:text-white dark:hover:bg-slate-300 dark:hover:text-slate-800 transition-colors"
           >
             <Plus className="w-4 h-4" /> Entri Baru
           </button>
@@ -54,7 +54,7 @@ export default function ProjectsTab({
                   projects.map(proj => (
                     <tr key={proj.id} className="border-b border-slate-200 dark:border-slate-800 hover:bg-zinc-50 dark:hover:bg-slate-800/30 transition-colors">
                       <td className="py-4 px-4">
-                        <div className="font-bold text-slate-800 dark:text-slate-100">{proj.title}</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-300">{proj.title}</div>
                         <div className="text-xs text-slate-500 font-medium mt-1 md:hidden">{proj.category_name}</div>
                       </td>
                       <td className="py-4 px-4 text-slate-600 dark:text-slate-400 font-medium hidden md:table-cell">{proj.category_name || '-'}</td>
@@ -65,10 +65,10 @@ export default function ProjectsTab({
                       </td>
                       <td className="py-4 px-4 text-right">
                         <div className="inline-flex gap-4 text-[10px] font-bold uppercase tracking-widest items-center">
-                          <button onClick={() => openGalleryManager(proj)} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors" title="Kelola Galeri">
+                          <button onClick={() => openGalleryManager(proj)} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors" title="Kelola Galeri">
                             <ImageIcon className="w-4 h-4" /> <span className="hidden xl:inline">Galeri</span>
                           </button>
-                          <button onClick={() => openEditProject(proj)} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors" title="Ubah Proyek">
+                          <button onClick={() => openEditProject(proj)} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors" title="Ubah Proyek">
                             <Pencil className="w-4 h-4" /> <span className="hidden xl:inline">Ubah</span>
                           </button>
                           <button onClick={() => handleProjectDelete(proj.id)} className="flex items-center gap-1 text-red-500 hover:text-red-700 transition-colors" title="Hapus Proyek">
@@ -88,7 +88,7 @@ export default function ProjectsTab({
       {/* KATEGORI SECTION */}
       <div>
         <div className="mb-8 border-b-2 border-slate-800 dark:border-slate-200 pb-4">
-          <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-100 uppercase">Klasifikasi Kategori</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-300 uppercase">Klasifikasi Kategori</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -96,14 +96,14 @@ export default function ProjectsTab({
           <div className="lg:col-span-4">
             <form onSubmit={handleCategorySubmit} className="space-y-6 bg-zinc-50 dark:bg-slate-800 p-6 border border-slate-200 dark:border-slate-800">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-2">Nama Kategori</label>
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 mb-2">Nama Kategori</label>
                 <input
                   type="text"
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   placeholder="Contoh: Gedung"
                   required
-                  className="bg-white dark:bg-[#18181b] border border-slate-300 dark:border-slate-700 px-3 py-2 w-full text-sm outline-none focus:border-slate-800 dark:focus:border-white transition-colors"
+                  className="bg-white dark:bg-[#18181b] border border-slate-300 dark:border-slate-700 px-3 py-2 w-full text-sm outline-none focus:border-slate-800 dark:focus:border-slate-400 transition-colors"
                 />
               </div>
               <div className="flex gap-4">
@@ -111,7 +111,7 @@ export default function ProjectsTab({
                   {editingCategory ? <><Pencil className="w-3 h-3"/> Simpan</> : <><Plus className="w-3 h-3"/> Tambah</>}
                 </button>
                 {editingCategory && (
-                  <button type="button" onClick={() => { setEditingCategory(null); setCategoryName(''); }} className="text-xs font-bold uppercase tracking-widest text-slate-500 border border-slate-300 px-4 py-2 hover:text-slate-800 hover:border-slate-800 dark:hover:text-white dark:border-slate-700 transition-colors">
+                  <button type="button" onClick={() => { setEditingCategory(null); setCategoryName(''); }} className="text-xs font-bold uppercase tracking-widest text-slate-500 border border-slate-300 px-4 py-2 hover:text-slate-800 hover:border-slate-800 dark:hover:text-slate-200 dark:border-slate-700 transition-colors">
                     Batal
                   </button>
                 )}
@@ -138,11 +138,11 @@ export default function ProjectsTab({
                 ) : (
                   categories.map(cat => (
                     <tr key={cat.id} className="border-b border-slate-200 dark:border-slate-800 hover:bg-zinc-50 dark:hover:bg-slate-800/30 transition-colors">
-                      <td className="py-4 px-4 font-bold text-slate-800 dark:text-slate-100">{cat.name}</td>
+                      <td className="py-4 px-4 font-bold text-slate-800 dark:text-slate-300">{cat.name}</td>
                       <td className="py-4 px-4 text-slate-500 font-medium">{cat.slug}</td>
                       <td className="py-4 px-4 text-right">
                         <div className="inline-flex gap-4 text-[10px] font-bold uppercase tracking-widest items-center">
-                          <button onClick={() => { setEditingCategory(cat); setCategoryName(cat.name); }} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors" title="Ubah">
+                          <button onClick={() => { setEditingCategory(cat); setCategoryName(cat.name); }} className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors" title="Ubah">
                             <Pencil className="w-4 h-4" /> <span className="hidden sm:inline">Ubah</span>
                           </button>
                           <button onClick={() => handleCategoryDelete(cat.id)} className="flex items-center gap-1 text-red-500 hover:text-red-700 transition-colors" title="Hapus">

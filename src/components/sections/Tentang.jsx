@@ -30,7 +30,7 @@ export default function Tentang() {
             <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 block">Profil Perusahaan</h2>
           </div>
           <div className="lg:col-span-7">
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl leading-tight font-medium text-slate-800 dark:text-slate-100 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl leading-tight font-medium text-slate-800 dark:text-slate-300 tracking-tight">
               Dedikasi pada keunggulan struktur, mengutamakan keamanan dan ketepatan waktu untuk setiap skala proyek.
             </h3>
           </div>
@@ -45,16 +45,16 @@ export default function Tentang() {
             
             <div className="space-y-8">
               <div className="flex items-start gap-6">
-                <span className="font-light text-5xl lg:text-6xl text-slate-800 dark:text-slate-100 tracking-tighter">{stats.years}</span>
+                <span className="font-light text-5xl lg:text-6xl text-slate-800 dark:text-slate-300 tracking-tighter">{stats.years}</span>
                 <div className="pt-2">
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-1">Tahun</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 mb-1">Tahun</p>
                   <p className="text-sm text-slate-500">Pengalaman di industri konstruksi sipil dan baja.</p>
                 </div>
               </div>
               <div className="flex items-start gap-6">
-                <span className="font-light text-5xl lg:text-6xl text-slate-800 dark:text-slate-100 tracking-tighter">{stats.projects}</span>
+                <span className="font-light text-5xl lg:text-6xl text-slate-800 dark:text-slate-300 tracking-tighter">{stats.projects}</span>
                 <div className="pt-2">
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 mb-1">Proyek</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 mb-1">Proyek</p>
                   <p className="text-sm text-slate-500">Telah diselesaikan di seluruh Indonesia.</p>
                 </div>
               </div>

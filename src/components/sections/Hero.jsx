@@ -14,7 +14,7 @@ export default function Hero() {
         
         {/* Top Header Area */}
         <div className="mt-12 lg:mt-24 mb-16 max-w-5xl">
-          <h1 className="font-bold text-5xl sm:text-6xl lg:text-[5.5rem] leading-[1.05] tracking-tighter text-slate-800 dark:text-slate-100 mb-8">
+          <h1 className="font-bold text-5xl sm:text-6xl lg:text-[5.5rem] leading-[1.05] tracking-tighter text-slate-800 dark:text-slate-300 mb-8">
             Membangun presisi.<br className="hidden sm:block" />
             Membentuk masa depan.
           </h1>
@@ -39,10 +39,10 @@ export default function Hero() {
               CV. Starcon Sejahtera menghadirkan solusi konstruksi profesional untuk proyek infrastruktur, gedung, dan fasilitas publik di seluruh Indonesia dengan standar kualitas tertinggi.
             </p>
             <div className="flex items-center gap-6">
-              <a href="#kontak" className="inline-block border-b border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-100 font-bold text-sm uppercase tracking-widest pb-1 hover:opacity-70 transition-opacity">
+              <a href="#kontak" className="inline-block border-b border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-300 font-bold text-sm uppercase tracking-widest pb-1 hover:opacity-70 transition-opacity">
                 Mulai Proyek
               </a>
-              <a href="#portofolio" className="inline-block text-slate-400 hover:text-slate-800 dark:hover:text-white font-medium text-sm uppercase tracking-widest transition-colors">
+              <a href="#portofolio" className="inline-block text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium text-sm uppercase tracking-widest transition-colors">
                 Lihat Karya
               </a>
             </div>

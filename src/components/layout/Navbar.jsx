@@ -50,20 +50,20 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">
+              <a key={link.href} href={link.href} className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
                 {link.label}
               </a>
             ))}
           </div>
 
           <div className="hidden lg:flex items-center gap-6">
-            <button onClick={toggleDarkMode} className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">
+            <button onClick={toggleDarkMode} className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
               {isDarkMode ? 'Light' : 'Dark'}
             </button>
             {adminUser && (
-              <a href="/admin" className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">Admin</a>
+              <a href="/admin" className="text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">Admin</a>
             )}
-            <a href="#kontak" className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 border-b-2 border-slate-800 dark:border-slate-200 pb-0.5 hover:opacity-70 transition-opacity">
+            <a href="#kontak" className="text-xs font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 border-b-2 border-slate-800 dark:border-slate-200 pb-0.5 hover:opacity-70 transition-opacity">
               Kontak
             </a>
           </div>
@@ -72,7 +72,7 @@ export default function Navbar() {
             <button onClick={toggleDarkMode} className="text-xs font-medium uppercase tracking-widest text-slate-500">
               {isDarkMode ? 'L' : 'D'}
             </button>
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-800 dark:text-slate-100">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-800 dark:text-slate-300">
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
@@ -83,14 +83,14 @@ export default function Navbar() {
         <div className="lg:hidden absolute top-full left-0 w-full bg-white dark:bg-[#18181b] border-b border-slate-100 dark:border-slate-800">
           <div className="px-6 py-6 space-y-6 flex flex-col">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium uppercase tracking-widest text-slate-800 dark:text-slate-100">
+              <a key={link.href} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium uppercase tracking-widest text-slate-800 dark:text-slate-300">
                 {link.label}
               </a>
             ))}
             {adminUser && (
-              <a href="/admin" className="text-sm font-medium uppercase tracking-widest text-slate-800 dark:text-slate-100">Admin</a>
+              <a href="/admin" className="text-sm font-medium uppercase tracking-widest text-slate-800 dark:text-slate-300">Admin</a>
             )}
-            <a href="#kontak" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-800 dark:text-slate-100 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <a href="#kontak" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest text-slate-800 dark:text-slate-300 pt-4 border-t border-slate-100 dark:border-slate-800">
               Kontak Kami
             </a>
           </div>

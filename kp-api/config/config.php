@@ -40,8 +40,8 @@ define('UPLOAD_URL', API_BASE_URL . '/uploads/gallery/');
 // Allowed image MIME types
 define('ALLOWED_MIME', ['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 
-// Max upload size: 5 MB
-define('MAX_FILE_SIZE', 5 * 1024 * 1024);
+// Max upload size: 4 MB
+define('MAX_FILE_SIZE', 4 * 1024 * 1024);
 
 // ============================================================
 // CORS (Cross-Origin Resource Sharing)

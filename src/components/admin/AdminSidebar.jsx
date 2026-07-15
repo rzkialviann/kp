@@ -12,7 +12,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, activeGalleryPro
     `w-full text-left py-3 px-4 text-[11px] font-bold uppercase tracking-widest transition-colors flex items-center gap-3 ${
       activeTab === tab && !activeGalleryProject
         ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-800'
-        : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-white'
+        : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-200'
     }`;
 
   return (
@@ -32,7 +32,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, activeGalleryPro
       </div>
 
       <div className="mt-auto pt-12">
-        <button onClick={onExit} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors w-full px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <button onClick={onExit} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors w-full px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
           <ArrowLeft className="w-4 h-4" /> Website
         </button>
       </div>

@@ -19,7 +19,7 @@ class FileUpload {
 
         // Validate size
         if ($file['size'] > MAX_FILE_SIZE) {
-            return ['success' => false, 'filename' => '', 'message' => 'Ukuran file melebihi batas 5 MB'];
+            return ['success' => false, 'filename' => '', 'message' => 'Ukuran file melebihi batas 4 MB'];
         }
 
         // Validate MIME type via finfo

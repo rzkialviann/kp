@@ -27,7 +27,7 @@ export default function Portofolio({ onViewDetail }) {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8 reveal">
           <div>
             <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 block">Arsip Proyek</h2>
-            <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-slate-800 dark:text-slate-100">
+            <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-slate-800 dark:text-slate-300">
               Rekam jejak konstruksi.
             </h3>
           </div>
@@ -39,8 +39,8 @@ export default function Portofolio({ onViewDetail }) {
                 onClick={() => setActiveFilter(f.key)}
                 className={`pb-1 border-b-2 transition-colors ${
                   activeFilter === f.key
-                    ? 'border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-100'
-                    : 'border-transparent text-slate-400 hover:text-slate-800 dark:hover:text-white'
+                    ? 'border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-300'
+                    : 'border-transparent text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
               >
                 {f.label}
@@ -60,7 +60,7 @@ export default function Portofolio({ onViewDetail }) {
           <div className="flex flex-col items-center justify-center py-32 text-center">
             <AlertCircle className="w-6 h-6 text-red-500 mb-4" />
             <p className="text-sm text-slate-500 mb-4">{error}</p>
-            <button onClick={refetch} className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest border-b border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-100 pb-1">
+            <button onClick={refetch} className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest border-b border-slate-800 dark:border-slate-200 text-slate-800 dark:text-slate-300 pb-1">
               <RefreshCw className="w-3.5 h-3.5" /> Muat Ulang
             </button>
           </div>
@@ -96,7 +96,7 @@ export default function Portofolio({ onViewDetail }) {
                         </span>
                       )}
                     </div>
-                    <h4 className="text-lg font-medium tracking-tight text-slate-800 dark:text-slate-100 mb-2 group-hover:underline underline-offset-4 decoration-1">
+                    <h4 className="text-lg font-medium tracking-tight text-slate-800 dark:text-slate-300 mb-2 group-hover:underline underline-offset-4 decoration-1">
                       {project.title}
                     </h4>
                     {project.address && (

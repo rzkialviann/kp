@@ -22,7 +22,7 @@ foreach ($autoloadDirs as $dir) {
 }
 
 // ─── Parse URL ───────────────────────────────────────────────
-$requestUri    = $_SERVER['REQUEST_URI'];
+$requestUri    = urldecode($_SERVER['REQUEST_URI']);
 $scriptDir     = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
 $path          = substr($requestUri, strlen($scriptDir));
 $path          = strtok($path, '?');          // strip query string
@@ -92,6 +92,16 @@ try {
     // ── Users ─────────────────────────────────────────────────
     } elseif ($method === 'POST' && matchRoute('/api/login', $path, $params)) {
         (new UserController())->login();
+    } elseif (($method === 'PUT' || $method === 'POST') && matchRoute('/api/users/{id}', $path, $params)) {
+        (new UserController())->update((int)$params[0]);
+    } elseif ($method === 'GET' && matchRoute('/api/users', $path, $params)) {
+        (new UserController())->index();
+    } elseif ($method === 'GET' && matchRoute('/api/users/{id}', $path, $params)) {
+        (new UserController())->show((int)$params[0]);
+    } elseif ($method === 'POST' && matchRoute('/api/users', $path, $params)) {
+        (new UserController())->create();
+    } elseif ($method === 'DELETE' && matchRoute('/api/users/{id}', $path, $params)) {
+        (new UserController())->delete((int)$params[0]);
 
 
     // ── Settings ──────────────────────────────────────────────
